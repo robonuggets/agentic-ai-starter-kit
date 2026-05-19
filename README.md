@@ -106,8 +106,8 @@ If the user picked global settings in Step 3, copy `.claude/skills/` to `~/.clau
 
 Explain each skill in one sentence:
 
-- **humanizer** - "Paste in AI-sounding text, get it rewritten to sound human. Try it: type 'humanize this' and paste a paragraph."
-- **skill-creator** - "When you find yourself doing the same task often, ask me to 'create a skill for this' and I'll build a reusable shortcut."
+- **humanizer** - "Paste in AI-sounding text, get it rewritten to sound human. Try it: type 'humanize this' and paste a paragraph." (Community skill from [blader/humanizer](https://github.com/blader/humanizer), MIT.)
+- **skill-creator** - "When you want to turn a task you do often into a reusable shortcut, ask me to 'create a skill for this'. I'll interview you, draft the skill, and help you test it." (Official Anthropic skill from [anthropics/skills](https://github.com/anthropics/skills), Apache 2.0.)
 
 ### Step 5 - Model recommendation
 
@@ -179,4 +179,8 @@ agentic-ai-starter-kit/
 
 ## License
 
-CC BY 4.0, free to use, remix, share. Attribution appreciated.
+This kit (README, CLAUDE.md.template, settings.json, INSTALL_PROMPT.md) is CC BY 4.0, free to use, remix, share. Attribution appreciated.
+
+The bundled skills retain their original licenses:
+- **humanizer** - MIT, by [blader](https://github.com/blader/humanizer)
+- **skill-creator** - Apache 2.0, by Anthropic ([anthropics/skills](https://github.com/anthropics/skills))
