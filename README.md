@@ -20,59 +20,47 @@ When you finish the setup, you'll have:
 
 ## INSTRUCTIONS FOR THE AGENT
 
-> **If you're a human reading this:** the section below is written for the AI agent. You can read it too, it'll show you exactly what's about to happen. The agent will pause and ask you questions as it goes.
+> **If you're a human reading this:** the section below is written for the AI agent. You can read it too, it'll show you exactly what's about to happen. The agent will pause at each major step.
 
 ### Agent: read this carefully before doing anything
 
 You are helping a beginner set up Claude Code. Your job:
 
 1. **Explain things in plain English.** No jargon. If you must use a technical term, define it the first time. Imagine talking to a smart friend who's never used a terminal.
-2. **Ask the user the 5 setup questions below.** One at a time. Wait for each answer.
+2. **Ask the 7 setup questions below in ONE message.** Numbered, all at once. Wait for the user's reply, then move on.
 3. **Show your work.** Before writing each file, say "I'm about to create `CLAUDE.md`, this is your personal profile that helps me work the way you want." Then create it.
 4. **Confirm at each major step.** "Done. Want me to continue?"
 
-### Step 1 - Ask the user these 5 questions
+### Step 1 - Ask the user these 7 questions in one message
 
-(Git is already installed at this point, the install prompt handled it before cloning the repo.)
+(Git is already installed at this point, the install prompt handled it before cloning the repo. The user's OS is detectable from the path or `uname` - don't ask, just figure it out.)
 
-Ask one at a time. Plain English. No technical terms unless you explain them.
+Post this exact message to the user:
 
-**Question 1 - Name**
-> "What should I call you?"
-
-**Question 2 - Role / what they do**
-> "What do you do? Give me one sentence, like 'I run a small ecommerce store' or 'I'm learning to code' or 'I'm a marketer who writes a lot.'"
-
-**Question 3 - Primary use case**
-> "What's the first thing you want help with? Pick the closest:
-> - **A.** Writing, emails, posts, articles, scripts
-> - **B.** Coding, building apps, websites, automations
-> - **C.** Research, digging into topics, summarising long stuff
-> - **D.** Business ops, running a team, customer work, admin
-> - **E.** Mix of everything"
-
-**Question 4 - Operating system**
-> "Are you on Windows, Mac, or Linux?" (You may already know this from the path, confirm anyway.)
-
-**Question 5 - Permission style**
-> "How do you want me to handle risky stuff? Two options:
+> Quick 7-question setup. Answer all in one message, just put numbers next to your replies. Skip any you're unsure about and I'll use a sensible default. (I'll figure out your OS on my own, don't worry about that.)
 >
-> - **Safe mode (recommended for first week):** I'll ask before doing anything that could delete files, push code online, or change important settings. More clicks for you, but nothing surprises you.
->
-> - **Trust mode:** I just do things. Faster. We've pre-loaded a list of catastrophic commands I'll *never* run without asking (like deleting your whole drive). Everything else, I just do.
->
-> Pick safe mode for now if you're not sure. You can switch later."
->
-> If they pick trust mode, explain how to enable it after setup (see Step 6 below).
+> 1. What should I call you, and what are you working on right now?
+> 2. How comfortable are you with technical stuff - none at all, some basics, fairly comfortable, or advanced?
+> 3. What's the main thing you want help with - writing, coding, research, business ops, or a mix?
+> 4. What tone do you prefer me to use - casual mate, formal pro, terse and dry, or warm and chatty?
+> 5. How long should my responses be by default - short bullets, medium with context, or detailed walkthroughs?
+> 6. How autonomous should I be - ask before every change, ask only on risky stuff, or just do it and report after?
+> 7. Is there anything I should never do, like use em-dashes, emoji, jargon, or auto-open files?
+
+Wait for the full reply before continuing.
 
 ### Step 2 - Write the personalised CLAUDE.md
 
-Take `CLAUDE.md.template` as your starting point. Fill in:
+Take `CLAUDE.md.template` as your starting point. Fill in the placeholders using the user's answers:
 
-- `{{NAME}}` becomes their name
-- `{{ROLE}}` becomes their one-sentence role
-- `{{USE_CASE}}` becomes the option they picked plus one sentence on what that means for how you'll work
-- `{{OS}}` becomes their operating system
+- `{{NAME_AND_PROJECT}}` - their answer to Q1
+- `{{TECH_COMFORT}}` - Q2
+- `{{USE_CASE}}` - Q3
+- `{{TONE}}` - Q4
+- `{{LENGTH}}` - Q5
+- `{{AUTONOMY}}` - Q6
+- `{{ANTI_PATTERNS}}` - Q7 (list the things they said never to do, or "none specified" if they skipped)
+- `{{OS}}` - what you auto-detected (Windows / Mac / Linux)
 
 Save it as `CLAUDE.md` (drop the `.template`) in the same folder they cloned this repo into.
 
@@ -106,8 +94,8 @@ If the user picked global settings in Step 3, copy `.claude/skills/` to `~/.clau
 
 Explain each skill in one sentence:
 
-- **humanizer** - "Paste in AI-sounding text, get it rewritten to sound human. Try it: type 'humanize this' and paste a paragraph." (Community skill from [blader/humanizer](https://github.com/blader/humanizer), MIT.)
-- **skill-creator** - "When you want to turn a task you do often into a reusable shortcut, ask me to 'create a skill for this'. I'll interview you, draft the skill, and help you test it." (Official Anthropic skill from [anthropics/skills](https://github.com/anthropics/skills), Apache 2.0.)
+- **humanizer** - "Paste in AI-sounding text, get it rewritten to sound human. Try it: type 'humanize this' and paste a paragraph."
+- **skill-creator** - "When you want to turn a task you do often into a reusable shortcut, ask me to 'create a skill for this'. I'll interview you, draft the skill, and help you test it."
 
 ### Step 5 - Model recommendation
 
@@ -123,7 +111,7 @@ Tell the user:
 
 ### Step 6 - (Optional) Enable trust mode
 
-If the user picked **Trust mode** in Question 5, show them how:
+If the user picked the "just do it and report after" option in Question 6, show them how to enable trust mode:
 
 > "To turn on trust mode, close Claude Code, then re-open it by typing this in your terminal:
 >
@@ -139,7 +127,7 @@ If the user picked **Trust mode** in Question 5, show them how:
 
 ### Step 7 - Wrap up
 
-Tell the user what to try first based on their use case:
+Tell the user what to try first based on their use case from Q3:
 
 - **Writing:** "Try `humanize this:` followed by a paragraph of AI-written text"
 - **Coding:** "Open a project folder and ask me to explain what it does"
@@ -167,20 +155,9 @@ agentic-ai-starter-kit/
 ├── README.md                  # this file
 ├── CLAUDE.md.template         # personalised by the agent during setup
 ├── INSTALL_PROMPT.md          # paste-in prompt to share with others
-├── LICENSE
 └── .claude/
     ├── settings.json          # deny list + allow list
     └── skills/
         ├── humanizer/
         └── skill-creator/
 ```
-
----
-
-## License
-
-This kit (README, CLAUDE.md.template, settings.json, INSTALL_PROMPT.md) is CC BY 4.0, free to use, remix, share. Attribution appreciated.
-
-The bundled skills retain their original licenses:
-- **humanizer** - MIT, by [blader](https://github.com/blader/humanizer)
-- **skill-creator** - Apache 2.0, by Anthropic ([anthropics/skills](https://github.com/anthropics/skills))
